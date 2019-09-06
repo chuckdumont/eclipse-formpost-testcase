@@ -1,0 +1,128 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<!-- Copyright IBM Corp. 2014, 2016 All Rights Reserved.                    -->
+
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.eclipse.jetty</groupId>
+  <artifactId>form_post_issue</artifactId>
+  <version>1.0.0</version>
+  <name>Test case for missing form post data</name>
+  <packaging>bundle</packaging>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+
+  <dependencies>
+      <dependency>
+        <groupId>org.eclipse.core</groupId>
+        <artifactId>runtime</artifactId>
+        <version>3.3.100-v20070530</version>
+      </dependency>
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>javax.servlet-api</artifactId>
+      <version>3.0.1</version>
+    </dependency>
+    <dependency>
+      <groupId>org.eclipse.platform</groupId>
+      <artifactId>org.eclipse.equinox.http.jetty</artifactId>
+      <version>3.3.0</version>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <defaultGoal>package</defaultGoal>
+    
+    <resources>
+      <resource>
+        <directory>${basedir}</directory>
+        <includes>
+          <include>WebContent/index.html</include>
+        </includes>
+      </resource>
+    </resources>
+
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-resources-plugin</artifactId>
+          <version>2.6</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>3.1</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-install-plugin</artifactId>
+          <version>2.4</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.felix</groupId>
+          <artifactId>maven-bundle-plugin</artifactId>
+          <version>2.4.0</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-jar-plugin</artifactId>
+          <version>2.4</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-dependency-plugin</artifactId>
+          <version>2.8</version>
+        </plugin>
+        <plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>build-helper-maven-plugin</artifactId>
+          <version>1.8</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-clean-plugin</artifactId>
+          <version>2.6.1</version>
+        </plugin>
+        
+      </plugins>
+    </pluginManagement>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.felix</groupId>
+        <artifactId>maven-bundle-plugin</artifactId>
+        <extensions>true</extensions>
+        <configuration>
+          <manifestLocation>META-INF</manifestLocation>
+          <instructions>
+            <Bundle-Name>${project.artifactId}</Bundle-Name>
+            <Bundle-Activator>org.eclipse.jetty.formpost.testcase.Activator</Bundle-Activator>
+            <Bundle-SymbolicName>${project.groupId}.${project.artifactId};singleton:=true</Bundle-SymbolicName>
+            <Require-Bundle>
+              org.eclipse.core.runtime,
+              org.eclipse.equinox.http.registry
+            </Require-Bundle>
+            <Bundle-RequiredExecutionEnvironment>JavaSE-1.7</Bundle-RequiredExecutionEnvironment>
+            <Import-Package>
+               javax.servlet;version="[2,4)",
+               javax.servlet.http;version="[2,4)",
+               org.eclipse.equinox.http.jetty;version="1.3.0",
+               !*
+            </Import-Package>
+            <_failok/>
+            <Web-ContextPath>/</Web-ContextPath>
+          </instructions>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+           <source>1.7</source>
+           <target>1.7</target>
+       </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+</project>
